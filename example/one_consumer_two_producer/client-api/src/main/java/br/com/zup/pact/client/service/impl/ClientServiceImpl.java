@@ -2,8 +2,11 @@ package br.com.zup.pact.client.service.impl;
 
 import br.com.zup.pact.client.dto.BalanceDTO;
 import br.com.zup.pact.client.dto.ClientDetailsDTO;
+import br.com.zup.pact.client.dto.PrimeAccountDetailsDTO;
+import br.com.zup.pact.client.dto.PrimeBalanceDTO;
 import br.com.zup.pact.client.exception.ClientNotFoundException;
 import br.com.zup.pact.client.integration.account.service.AccountIntegrationService;
+import br.com.zup.pact.client.integration.account.service.PrimeAccountDetailsIntegrationService;
 import br.com.zup.pact.client.repository.ClientRepository;
 import br.com.zup.pact.client.service.ClientService;
 import lombok.AccessLevel;
@@ -19,6 +22,7 @@ public class ClientServiceImpl implements ClientService {
 
     private final ClientRepository clientRepository;
     private final AccountIntegrationService accountIntegrationService;
+    private final PrimeAccountDetailsIntegrationService primeAccountDetailsIntegrationService;
 
     @Override
     public Optional<ClientDetailsDTO> getClientDetails(Integer clientId) {
@@ -31,9 +35,33 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Optional<BalanceDTO> getBalance(Integer clientId) {
+    public Optional<PrimeBalanceDTO> getBalance(Integer clientId) {
         final Integer accountId = getAccountId(clientId);
-        return accountIntegrationService.getBalance(accountId);
+        Optional<BalanceDTO> balanceDTOOptional = accountIntegrationService.getBalance(accountId);
+
+        if (balanceDTOOptional.isEmpty()) {
+            return Optional.empty();
+        }
+
+        BalanceDTO balanceDTO = balanceDTOOptional.get();
+
+        Optional<PrimeAccountDetailsDTO> primeAccountDetailsDTOOptional = primeAccountDetailsIntegrationService
+                .getPrimeAccountDetails(balanceDTO.getClientId());
+
+        if (primeAccountDetailsDTOOptional.isEmpty()) {
+            return Optional.of(PrimeBalanceDTO.fromBalanceDTO(balanceDTO));
+        }
+
+        PrimeAccountDetailsDTO primeAccountDetailsDTO = primeAccountDetailsDTOOptional.get();
+
+        PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(
+                balanceDTO,
+                primeAccountDetailsDTO.getIsPrime(),
+                primeAccountDetailsDTO.getDiscountPercentageFee()
+        );
+
+        return Optional.of(primeBalanceDTO);
+
     }
 
     private Integer getAccountId(Integer clientId) {

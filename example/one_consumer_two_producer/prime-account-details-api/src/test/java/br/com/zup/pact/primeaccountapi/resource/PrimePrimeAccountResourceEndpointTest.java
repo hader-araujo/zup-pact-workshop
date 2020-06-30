@@ -1,6 +1,6 @@
 package br.com.zup.pact.primeaccountapi.resource;
 
-import br.com.zup.pact.primeaccountapi.dto.AccountDetailsDTO;
+import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import br.com.zup.pact.primeaccountapi.service.PrimeAccountService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class PrimeAccountResourceEndpointTest {
+class PrimePrimeAccountResourceEndpointTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,7 +30,7 @@ class PrimeAccountResourceEndpointTest {
 
     @Test
     void getPrimeAccountDetailsByClientId() throws Exception {
-        final AccountDetailsDTO accountDetailsDTO = AccountDetailsDTO.builder()
+        final PrimeAccountDetailsDTO accountDetailsDTO = PrimeAccountDetailsDTO.builder()
                 .isPrime(true)
                 .discountPercentageFee(5)
                 .accountId(1)

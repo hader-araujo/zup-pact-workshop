@@ -1,6 +1,6 @@
 package br.com.zup.pact.primeaccountapi.repository;
 
-import br.com.zup.pact.primeaccountapi.dto.AccountDetailsDTO;
+import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +12,7 @@ import java.util.Random;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AccountRepository {
 
-    public Optional<AccountDetailsDTO> getPrimeAccountDetailsByClientId(Integer clientId) {
+    public Optional<PrimeAccountDetailsDTO> getPrimeAccountDetailsByClientId(Integer clientId) {
         Random random = new Random();
 
         if (clientId == null) {
@@ -20,14 +20,14 @@ public class AccountRepository {
         }
 
         if (clientId % 2 == 0) {
-            return Optional.of(AccountDetailsDTO.builder()
+            return Optional.of(PrimeAccountDetailsDTO.builder()
                     .isPrime(true)
                     .accountId(random.nextInt())
                     .discountPercentageFee(random.nextInt(25) + 1).build()
             );
         }
 
-        return Optional.of(AccountDetailsDTO.builder()
+        return Optional.of(PrimeAccountDetailsDTO.builder()
                 .isPrime(false)
                 .accountId(random.nextInt())
                 .discountPercentageFee(0).build()

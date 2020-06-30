@@ -74,7 +74,8 @@ public class AccountPactTest {
     void testBalanceWorking(MockServer mockServer) throws IOException {
         HttpResponse httpResponse = Request.Get(mockServer.getUrl() + BALANCE_URL_WORKING).execute().returnResponse();
         assertThat(httpResponse.getStatusLine().getStatusCode(), is(equalTo(200)));
-        final BalanceDTO balanceDTO = gson
+        final
+        BalanceDTO balanceDTO = gson
                 .fromJson(IOUtils.toString(httpResponse.getEntity().getContent()), BalanceDTO.class);
         assertThat(balanceDTO.getAccountId(), is(1));
         assertThat(balanceDTO.getClientId(), is(1));

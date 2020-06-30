@@ -1,25 +1,23 @@
 package br.com.zup.pact.primeaccountapi.dto;
 
-import br.com.zup.pact.primeaccountapi.entity.Account;
-import br.com.zup.pact.primeaccountapi.enums.AccountType;
+import br.com.zup.pact.primeaccountapi.entity.PrimeAccount;
 import lombok.Builder;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Data
 @Builder
-public class AccountDetailsDTO {
+public class PrimeAccountDetailsDTO {
 
     private Integer accountId;
     private Boolean isPrime;
     private Integer discountPercentageFee;
 
 
-    public static Account fromDtoToEntity(AccountDetailsDTO accountDetailsDTO) {
+    public static PrimeAccount fromDtoToEntity(PrimeAccountDetailsDTO accountDetailsDTO) {
         if (Objects.nonNull(accountDetailsDTO)){
-            return Account.builder()
+            return PrimeAccount.builder()
                     .isPrime(accountDetailsDTO.getIsPrime())
                     .discountPercentageFee(accountDetailsDTO.getDiscountPercentageFee())
                     .build();

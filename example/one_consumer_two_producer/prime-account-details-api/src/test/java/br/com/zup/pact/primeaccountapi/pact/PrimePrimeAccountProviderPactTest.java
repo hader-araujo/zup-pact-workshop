@@ -7,7 +7,7 @@ import au.com.dius.pact.provider.junit.loader.PactBroker;
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
-import br.com.zup.pact.primeaccountapi.dto.AccountDetailsDTO;
+import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import br.com.zup.pact.primeaccountapi.service.PrimeAccountService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ import static org.mockito.BDDMockito.given;
 @VerificationReports
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PrimeAccountProviderPactTest {
+public class PrimePrimeAccountProviderPactTest {
 
     @LocalServerPort
     private int localServerPort;
@@ -54,7 +54,7 @@ public class PrimeAccountProviderPactTest {
 
     @State("get prime account details of clientId 1")
     public void getPrimeAccountDetailsDTO() {
-        final AccountDetailsDTO balanceDTO = AccountDetailsDTO
+        final PrimeAccountDetailsDTO balanceDTO = PrimeAccountDetailsDTO
                 .builder()
                 .accountId(1)
                 .isPrime(true)
@@ -62,10 +62,5 @@ public class PrimeAccountProviderPactTest {
                 .build();
         given(primeAccountService.getPrimeAccountDetailsByClientId(eq(1))).willReturn(Optional.of(balanceDTO));
 
-    }
-
-    @State("No accounts exist from accountId 1000")
-    public void getPrimeAccountDetailsNotWorking() {
-        given(primeAccountService.getPrimeAccountDetailsByClientId(eq(1000))).willReturn(Optional.empty());
     }
 }

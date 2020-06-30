@@ -1,7 +1,7 @@
 package br.com.zup.pact.client.resource;
 
-import br.com.zup.pact.client.dto.BalanceDTO;
 import br.com.zup.pact.client.dto.ClientDetailsDTO;
+import br.com.zup.pact.client.dto.PrimeBalanceDTO;
 import br.com.zup.pact.client.entity.Client;
 import br.com.zup.pact.client.service.ClientService;
 import br.com.zup.pact.client.stub.ClientStub;
@@ -88,24 +88,31 @@ class ClientResourceEndpointTest {
 
     @Test
     void getBalance() throws Exception {
-        BalanceDTO balanceDTO = buildBalanceDTO();
-        when(clientService.getBalance(anyInt())).thenReturn(Optional.of(balanceDTO));
+        PrimeBalanceDTO primeBalanceDTO = buildPrimeBalanceDTO();
+        when(clientService.getBalance(anyInt())).thenReturn(Optional.of(primeBalanceDTO));
         mockMvc.perform(get("/v1/clients/balance/1"))
                 .andDo(print())
                 .andExpect(jsonPath("$.clientId").exists())
                 .andExpect(jsonPath("$.accountId").exists())
                 .andExpect(jsonPath("$.balance").exists())
-                .andExpect(jsonPath("$.clientId").value(balanceDTO.getClientId()))
-                .andExpect(jsonPath("$.accountId").value(balanceDTO.getAccountId()))
-                .andExpect(jsonPath("$.balance").value(balanceDTO.getBalance()))
+                .andExpect(jsonPath("$.isPrime").exists())
+                .andExpect(jsonPath("$.discountPercentageFee").exists())
+                .andExpect(jsonPath("$.clientId").value(primeBalanceDTO.getClientId()))
+                .andExpect(jsonPath("$.accountId").value(primeBalanceDTO.getAccountId()))
+                .andExpect(jsonPath("$.balance").value(primeBalanceDTO.getBalance()))
+                .andExpect(jsonPath("$.isPrime").value(primeBalanceDTO.getIsPrime()))
+                .andExpect(jsonPath("$.discountPercentageFee").value(
+                        primeBalanceDTO.getDiscountPercentageFee()))
                 .andExpect(status().isOk());
     }
 
-    private BalanceDTO buildBalanceDTO() {
-        return BalanceDTO.builder()
+    private PrimeBalanceDTO buildPrimeBalanceDTO() {
+        return PrimeBalanceDTO.builder()
                 .accountId(1)
                 .balance(new BigDecimal("300"))
                 .clientId(10)
+                .isPrime(true)
+                .discountPercentageFee(5)
                 .build();
     }
 }

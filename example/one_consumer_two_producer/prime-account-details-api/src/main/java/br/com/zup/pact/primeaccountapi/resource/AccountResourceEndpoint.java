@@ -1,6 +1,6 @@
 package br.com.zup.pact.primeaccountapi.resource;
 
-import br.com.zup.pact.primeaccountapi.dto.AccountDetailsDTO;
+import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import br.com.zup.pact.primeaccountapi.service.PrimeAccountService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,15 +29,15 @@ public class AccountResourceEndpoint {
     @ApiOperation(notes = "Return details of the ClientId,if the account is prime",
             value = "Get Account Details by client id",
             nickname = "getPrimeAccountDetailsByClientId",
-            response = AccountDetailsDTO.class)
+            response = PrimeAccountDetailsDTO.class)
     @ApiResponses({
-            @ApiResponse(code = 200, message = "Account Returned", response = AccountDetailsDTO.class),
+            @ApiResponse(code = 200, message = "Account Returned", response = PrimeAccountDetailsDTO.class),
             @ApiResponse(code = 404, message = "account Not Found"),
     })
-    public ResponseEntity<AccountDetailsDTO> getPrimeAccountDetailsByClientId(@PathVariable("clientId") Integer clientId) {
-        final Optional<AccountDetailsDTO> accountDetailsDTO = primeAccountService.getPrimeAccountDetailsByClientId(clientId);
+    public ResponseEntity<PrimeAccountDetailsDTO> getPrimeAccountDetailsByClientId(@PathVariable("clientId") Integer clientId) {
+        final Optional<PrimeAccountDetailsDTO> accountDetailsDTO = primeAccountService.getPrimeAccountDetailsByClientId(clientId);
         if (accountDetailsDTO.isPresent()) {
-            final AccountDetailsDTO accountDetailsDTOFound = accountDetailsDTO.get();
+            final PrimeAccountDetailsDTO accountDetailsDTOFound = accountDetailsDTO.get();
             return new ResponseEntity<>(accountDetailsDTOFound, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);

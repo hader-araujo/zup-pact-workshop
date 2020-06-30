@@ -2,6 +2,7 @@ package br.com.zup.pact.client.resource;
 
 import br.com.zup.pact.client.dto.BalanceDTO;
 import br.com.zup.pact.client.dto.ClientDetailsDTO;
+import br.com.zup.pact.client.dto.PrimeBalanceDTO;
 import br.com.zup.pact.client.service.ClientService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -73,10 +74,10 @@ public class ClientResourceEndpoint {
             @ApiResponse(code = 200, message = "Client Returned", response = BalanceDTO.class),
             @ApiResponse(code = 404, message = "Client Not Found"),
     })
-    public ResponseEntity<BalanceDTO> getBalance(@PathVariable("clientId") Integer clientId) {
-        final Optional<BalanceDTO> balanceDTO = clientService.getBalance(clientId);
-        if (Objects.nonNull(balanceDTO)) {
-            final BalanceDTO balanceDTOFound = balanceDTO.get();
+    public ResponseEntity<PrimeBalanceDTO> getBalance(@PathVariable("clientId") Integer clientId) {
+        final Optional<PrimeBalanceDTO> primeBalanceDTO = clientService.getBalance(clientId);
+        if (Objects.nonNull(primeBalanceDTO)) {
+            final PrimeBalanceDTO balanceDTOFound = primeBalanceDTO.get();
             return new ResponseEntity<>(balanceDTOFound, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
