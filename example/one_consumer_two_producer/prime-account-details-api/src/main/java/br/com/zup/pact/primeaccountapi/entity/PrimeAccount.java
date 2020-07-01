@@ -14,8 +14,6 @@ import java.util.Objects;
 @Builder
 public class PrimeAccount {
 
-    private Integer id;
-    private Integer clientId;
     private Boolean isPrime;
     private Integer discountPercentageFee;
 
@@ -24,7 +22,6 @@ public class PrimeAccount {
             return PrimeAccountDetailsDTO.builder()
                     .isPrime(primeAccount.getIsPrime())
                     .discountPercentageFee(primeAccount.getDiscountPercentageFee())
-                    .accountId(primeAccount.getId())
                     .build();
         }
         return null;

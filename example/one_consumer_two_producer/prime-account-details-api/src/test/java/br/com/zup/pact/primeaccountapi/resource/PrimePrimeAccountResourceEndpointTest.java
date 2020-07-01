@@ -33,17 +33,14 @@ class PrimePrimeAccountResourceEndpointTest {
         final PrimeAccountDetailsDTO accountDetailsDTO = PrimeAccountDetailsDTO.builder()
                 .isPrime(true)
                 .discountPercentageFee(5)
-                .accountId(1)
                 .build();
         when(primeAccountService.getPrimeAccountDetailsByClientId(anyInt())).thenReturn(Optional.of(accountDetailsDTO));
         mockMvc.perform(get("/v1/primeaccounts/1"))
                 .andDo(print())
                 .andExpect(jsonPath("$.isPrime").exists())
                 .andExpect(jsonPath("$.discountPercentageFee").exists())
-                .andExpect(jsonPath("$.accountId").exists())
                 .andExpect(jsonPath("$.isPrime").value(accountDetailsDTO.getIsPrime()))
                 .andExpect(jsonPath("$.discountPercentageFee").value(accountDetailsDTO.getDiscountPercentageFee()))
-                .andExpect(jsonPath("$.accountId").value(accountDetailsDTO.getAccountId().toString()))
                 .andExpect(status().isOk());
     }
 

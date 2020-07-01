@@ -10,7 +10,6 @@ import java.util.Objects;
 @Builder
 public class PrimeAccountDetailsDTO {
 
-    private Integer accountId;
     private Boolean isPrime;
     private Integer discountPercentageFee;
 

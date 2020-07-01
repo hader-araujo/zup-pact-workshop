@@ -22,14 +22,12 @@ public class AccountRepository {
         if (clientId % 2 == 0) {
             return Optional.of(PrimeAccountDetailsDTO.builder()
                     .isPrime(true)
-                    .accountId(random.nextInt())
                     .discountPercentageFee(random.nextInt(25) + 1).build()
             );
         }
 
         return Optional.of(PrimeAccountDetailsDTO.builder()
                 .isPrime(false)
-                .accountId(random.nextInt())
                 .discountPercentageFee(0).build()
         );
     }

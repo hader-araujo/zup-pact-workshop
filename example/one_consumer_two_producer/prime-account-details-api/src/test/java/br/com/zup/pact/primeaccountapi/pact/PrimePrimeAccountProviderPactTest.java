@@ -56,7 +56,6 @@ public class PrimePrimeAccountProviderPactTest {
     public void getPrimeAccountDetailsDTO() {
         final PrimeAccountDetailsDTO balanceDTO = PrimeAccountDetailsDTO
                 .builder()
-                .accountId(1)
                 .isPrime(true)
                 .discountPercentageFee(5)
                 .build();

@@ -18,7 +18,11 @@ public class PrimeBalanceDTO implements Serializable {
     private Boolean isPrime;
     private Integer discountPercentageFee;
 
-    public static PrimeBalanceDTO fromBalanceDTO(BalanceDTO balanceDTO, Boolean isPrime, Integer discountPercentageFee) {
+    public static PrimeBalanceDTO fromBalanceDTO(
+            BalanceDTO balanceDTO,
+            Boolean isPrime,
+            Integer discountPercentageFee
+    ) {
         PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(balanceDTO);
 
         primeBalanceDTO.setIsPrime(isPrime);
