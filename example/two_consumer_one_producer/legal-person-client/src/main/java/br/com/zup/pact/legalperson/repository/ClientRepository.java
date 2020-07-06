@@ -3,15 +3,14 @@ package br.com.zup.pact.legalperson.repository;
 import br.com.zup.pact.legalperson.dto.ClientDetailsDTO;
 import br.com.zup.pact.legalperson.entity.Client;
 import br.com.zup.pact.legalperson.stub.ClientStub;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -26,9 +25,9 @@ public class ClientRepository {
     public Optional<List<ClientDetailsDTO>> getAll() {
         final List<Client> clients = clientStub.getClients().values().stream()
                 .collect(Collectors.toList());
-        List<ClientDetailsDTO> clientDetailsDTOS = new ArrayList<>();
-        if (Objects.nonNull(clients)){
-            for (Client client :clients) {
+        final List<ClientDetailsDTO> clientDetailsDTOS = new ArrayList<>();
+        if (Objects.nonNull(clients)) {
+            for (Client client : clients) {
                 clientDetailsDTOS.add(Client.fromEntityToDto(client));
             }
         }

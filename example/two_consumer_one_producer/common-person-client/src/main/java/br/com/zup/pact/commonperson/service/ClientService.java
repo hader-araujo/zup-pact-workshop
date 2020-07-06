@@ -2,7 +2,6 @@ package br.com.zup.pact.commonperson.service;
 
 import br.com.zup.pact.commonperson.dto.BalanceDTO;
 import br.com.zup.pact.commonperson.dto.ClientDetailsDTO;
-
 import java.util.List;
 import java.util.Optional;
 
