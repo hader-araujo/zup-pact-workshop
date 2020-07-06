@@ -3,11 +3,10 @@ package br.com.zup.pact.primeaccountapi.service.impl;
 import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import br.com.zup.pact.primeaccountapi.repository.AccountRepository;
 import br.com.zup.pact.primeaccountapi.service.PrimeAccountService;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)

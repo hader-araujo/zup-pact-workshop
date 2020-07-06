@@ -9,12 +9,11 @@ import br.com.zup.pact.client.integration.account.service.AccountIntegrationServ
 import br.com.zup.pact.client.integration.account.service.PrimeAccountDetailsIntegrationService;
 import br.com.zup.pact.client.repository.ClientRepository;
 import br.com.zup.pact.client.service.ClientService;
+import java.util.List;
+import java.util.Optional;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -37,24 +36,24 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Optional<PrimeBalanceDTO> getBalance(Integer clientId) {
         final Integer accountId = getAccountId(clientId);
-        Optional<BalanceDTO> balanceDTOOptional = accountIntegrationService.getBalance(accountId);
+        final Optional<BalanceDTO> balanceDTOOptional = accountIntegrationService.getBalance(accountId);
 
         if (balanceDTOOptional.isEmpty()) {
             return Optional.empty();
         }
 
-        BalanceDTO balanceDTO = balanceDTOOptional.get();
+        final BalanceDTO balanceDTO = balanceDTOOptional.get();
 
-        Optional<PrimeAccountDetailsDTO> primeAccountDetailsDTOOptional = primeAccountDetailsIntegrationService
+        final Optional<PrimeAccountDetailsDTO> primeAccountDetailsDTOOptional = primeAccountDetailsIntegrationService
                 .getPrimeAccountDetails(balanceDTO.getClientId());
 
         if (primeAccountDetailsDTOOptional.isEmpty()) {
             return Optional.of(PrimeBalanceDTO.fromBalanceDTO(balanceDTO));
         }
 
-        PrimeAccountDetailsDTO primeAccountDetailsDTO = primeAccountDetailsDTOOptional.get();
+        final PrimeAccountDetailsDTO primeAccountDetailsDTO = primeAccountDetailsDTOOptional.get();
 
-        PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(
+        final PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(
                 balanceDTO,
                 primeAccountDetailsDTO.getIsPrime(),
                 primeAccountDetailsDTO.getDiscountPercentageFee()
@@ -66,7 +65,7 @@ public class ClientServiceImpl implements ClientService {
 
     private Integer getAccountId(Integer clientId) {
         return getClientDetails(clientId)
-                    .orElseThrow(() -> new ClientNotFoundException("Client with id: " + clientId + " not found!"))
-                    .getAccountId();
+                .orElseThrow(() -> new ClientNotFoundException("Client with id: " + clientId + " not found!"))
+                .getAccountId();
     }
 }

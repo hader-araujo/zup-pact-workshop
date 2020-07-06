@@ -1,28 +1,29 @@
 package br.com.zup.pact.primeaccountapi.repository;
 
 import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
+import java.util.Optional;
+import java.util.Random;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
-import java.util.Random;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class AccountRepository {
 
     public Optional<PrimeAccountDetailsDTO> getPrimeAccountDetailsByClientId(Integer clientId) {
-        Random random = new Random();
+        final Random random = new Random();
 
         if (clientId == null) {
             return Optional.empty();
         }
 
-        if (clientId % 2 == 0) {
+        final int conditionToIsEven = 2;
+        if (clientId % conditionToIsEven == 0) {
+            final int maxDiscount = 25;
             return Optional.of(PrimeAccountDetailsDTO.builder()
                     .isPrime(true)
-                    .discountPercentageFee(random.nextInt(25) + 1).build()
+                    .discountPercentageFee(random.nextInt(maxDiscount) + 1).build()
             );
         }
 

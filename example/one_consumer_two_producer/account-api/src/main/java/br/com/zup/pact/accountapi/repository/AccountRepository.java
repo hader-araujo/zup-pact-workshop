@@ -5,15 +5,14 @@ import br.com.zup.pact.accountapi.dto.BalanceDTO;
 import br.com.zup.pact.accountapi.entity.Account;
 import br.com.zup.pact.accountapi.exception.ClientNotFoundException;
 import br.com.zup.pact.accountapi.stub.AccountStub;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -28,9 +27,9 @@ public class AccountRepository {
     public Optional<List<AccountDetailsDTO>> getAll() {
         final List<Account> accounts = accountStub.getAccounts().values().stream()
                 .collect(Collectors.toList());
-        List<AccountDetailsDTO> clientDetailsDTOS = new ArrayList<>();
-        if (Objects.nonNull(accounts)){
-            for (Account account :accounts) {
+        final List<AccountDetailsDTO> clientDetailsDTOS = new ArrayList<>();
+        if (Objects.nonNull(accounts)) {
+            for (Account account : accounts) {
                 clientDetailsDTOS.add(Account.fromEntityToDto(account));
             }
         }

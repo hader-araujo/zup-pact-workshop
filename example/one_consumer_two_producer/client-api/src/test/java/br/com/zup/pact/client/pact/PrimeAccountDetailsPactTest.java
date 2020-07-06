@@ -1,5 +1,9 @@
 package br.com.zup.pact.client.pact;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+
 import au.com.dius.pact.consumer.MockServer;
 import au.com.dius.pact.consumer.dsl.PactDslJsonBody;
 import au.com.dius.pact.consumer.dsl.PactDslWithProvider;
@@ -7,25 +11,17 @@ import au.com.dius.pact.consumer.junit5.PactConsumerTestExt;
 import au.com.dius.pact.consumer.junit5.PactTestFor;
 import au.com.dius.pact.core.model.RequestResponsePact;
 import au.com.dius.pact.core.model.annotations.Pact;
-import br.com.zup.pact.client.dto.BalanceDTO;
 import br.com.zup.pact.client.dto.PrimeAccountDetailsDTO;
-import br.com.zup.pact.client.dto.PrimeBalanceDTO;
 import com.google.gson.Gson;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.fluent.Request;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
-import java.io.IOException;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
 
 @ExtendWith(PactConsumerTestExt.class)
 @PactTestFor(providerName = "PrimeAccountDetailsProvider", port = "1234")
@@ -48,7 +44,7 @@ public class PrimeAccountDetailsPactTest {
 
         return builder
                 .given("get prime account details of clientId 1")
-                .uponReceiving("A request to " +BALANCE_URL_WORKING)
+                .uponReceiving("A request to " + BALANCE_URL_WORKING)
                 .path(BALANCE_URL_WORKING)
                 .method("GET")
                 .willRespondWith()

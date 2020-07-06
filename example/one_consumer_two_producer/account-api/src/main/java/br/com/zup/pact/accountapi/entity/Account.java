@@ -2,13 +2,12 @@ package br.com.zup.pact.accountapi.entity;
 
 import br.com.zup.pact.accountapi.dto.AccountDetailsDTO;
 import br.com.zup.pact.accountapi.enums.AccountType;
+import java.math.BigDecimal;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
-import java.util.Objects;
 
 @AllArgsConstructor
 @Getter
@@ -22,7 +21,7 @@ public class Account {
     private AccountType accountType;
 
     public static AccountDetailsDTO fromEntityToDto(Account account) {
-        if (Objects.nonNull(account)){
+        if (Objects.nonNull(account)) {
             return AccountDetailsDTO.builder()
                     .accountType(account.getAccountType())
                     .balance(account.getBalance())

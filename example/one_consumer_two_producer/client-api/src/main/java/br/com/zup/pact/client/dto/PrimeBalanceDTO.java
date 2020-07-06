@@ -1,9 +1,12 @@
 package br.com.zup.pact.client.dto;
 
-import lombok.*;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Builder
 @NoArgsConstructor
@@ -23,7 +26,7 @@ public class PrimeBalanceDTO implements Serializable {
             Boolean isPrime,
             Integer discountPercentageFee
     ) {
-        PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(balanceDTO);
+        final PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.fromBalanceDTO(balanceDTO);
 
         primeBalanceDTO.setIsPrime(isPrime);
         primeBalanceDTO.setDiscountPercentageFee(discountPercentageFee);
@@ -31,8 +34,8 @@ public class PrimeBalanceDTO implements Serializable {
         return primeBalanceDTO;
     }
 
-    public static PrimeBalanceDTO fromBalanceDTO(BalanceDTO balanceDTO ) {
-        PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.builder()
+    public static PrimeBalanceDTO fromBalanceDTO(BalanceDTO balanceDTO) {
+        final PrimeBalanceDTO primeBalanceDTO = PrimeBalanceDTO.builder()
                 .clientId(balanceDTO.getClientId())
                 .accountId(balanceDTO.getAccountId())
                 .balance(balanceDTO.getBalance())

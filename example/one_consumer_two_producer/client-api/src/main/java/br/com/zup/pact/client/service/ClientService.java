@@ -1,9 +1,7 @@
 package br.com.zup.pact.client.service;
 
-import br.com.zup.pact.client.dto.BalanceDTO;
 import br.com.zup.pact.client.dto.ClientDetailsDTO;
 import br.com.zup.pact.client.dto.PrimeBalanceDTO;
-
 import java.util.List;
 import java.util.Optional;
 

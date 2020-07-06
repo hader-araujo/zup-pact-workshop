@@ -1,5 +1,8 @@
 package br.com.zup.pact.primeaccountapi.pact;
 
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
+
 import au.com.dius.pact.provider.junit.Provider;
 import au.com.dius.pact.provider.junit.State;
 import au.com.dius.pact.provider.junit.VerificationReports;
@@ -9,6 +12,7 @@ import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junit5.PactVerificationInvocationContextProvider;
 import br.com.zup.pact.primeaccountapi.dto.PrimeAccountDetailsDTO;
 import br.com.zup.pact.primeaccountapi.service.PrimeAccountService;
+import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
@@ -17,11 +21,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
-
-import java.util.Optional;
-
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.BDDMockito.given;
 
 @Provider("PrimeAccountDetailsProvider")
 @PactBroker(host = "localhost", port = "80")
@@ -36,14 +35,14 @@ public class PrimePrimeAccountProviderPactTest {
     @MockBean
     private PrimeAccountService primeAccountService;
 
-    @BeforeEach
-    void setUp(PactVerificationContext context) {
-        context.setTarget(new HttpTestTarget("localhost", localServerPort, "/"));
-    }
-
     @BeforeAll
     static void enablePublishingPact() {
         System.setProperty("pact.verifier.publishResults", "true");
+    }
+
+    @BeforeEach
+    void setUp(PactVerificationContext context) {
+        context.setTarget(new HttpTestTarget("localhost", localServerPort, "/"));
     }
 
     @TestTemplate
